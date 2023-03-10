@@ -58,9 +58,9 @@ _poetry-config:
 			sed 's/"SOURCE"/["ai_git_commit"]/g' pyproject.toml > tmpfile && mv tmpfile pyproject.toml; \
 			sed 's/"EXCLUDE_LINES"/["if __name__ == .__main__.:"]/g' pyproject.toml > tmpfile && mv tmpfile pyproject.toml; \
 			sed 's/"poetry-core"/"poetry-core>=1.1.0"/g' pyproject.toml > tmpfile && mv tmpfile pyproject.toml; \
-			git add .; \
-			git commit -m "feat: initial commit"; \
 		fi \
+		git add .; \
+		git commit -m "feat: initial commit"; \
     fi
 
 

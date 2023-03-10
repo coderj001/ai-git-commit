@@ -18,10 +18,15 @@ mypy = "^1.1.1"
 xenon = "^0.9.0"
 radon = "^5.1.0"
 twine = "^4.0.2"
+ini-parser = "^1.2.0"
 
 
 [tool.poetry.scripts]
 ai-git-commit = "ai_git_commit:main"
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.1.0"
+ipython = "^8.11.0"
 
 [tool.pytest]
 testpaths = "tests"
