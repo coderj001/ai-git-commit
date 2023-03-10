@@ -84,3 +84,6 @@ def test_get_config(cleanup_config):
     expected = {"OPENAI_KEY": "sk-xyz456", "locale": "en"}
     cli_config = {"OPENAI_KEY": "sk-xyz456"}
     assert get_config(cli_config) == expected
+
+
+# a change

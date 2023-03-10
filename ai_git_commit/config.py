@@ -38,7 +38,6 @@ def locale(locale: Optional[str]) -> str:
 
 
 config_parsers = {"OPENAI_KEY": openai_key, "locale": locale}
-config_option_ini = {"config": "config"}
 
 ConfigKeys = Tuple[str, ...]
 
@@ -69,7 +68,7 @@ def set_configs(key_values: Tuple[Tuple[str, str], ...]):
         config[key] = parsed
     config_path = os.path.join(os.path.expanduser("~"), ".ai-git-commit")
     with open(config_path, "w") as f:
-        f.write(ini.stringify(config, config_option_ini))
+        f.write(ini.stringify(config))
 
 
 def get_config(cli_config: Optional[RawConfig] = None) -> ValidConfig:
