@@ -1,6 +1,9 @@
-import os, ini, re
-from typing import Dict, Tuple, Optional
+import os
+import re
 from pathlib import Path
+from typing import Dict, Optional, Tuple
+
+import ini
 
 
 def file_exists(path: str) -> bool:
@@ -51,7 +54,11 @@ class ValidConfig(Dict[str, str]):
 
 
 def read_config_file() -> RawConfig:
-    config_path = os.path.join(os.path.expanduser("~"), ".ai-git-commit")
+    config_path = (
+        os.path.join(os.path.expanduser("~"), ".ai-git-commit")
+        if not file_exists(".env")
+        else os.path.join(os.getcwd(), ".env")
+    )
     if not file_exists(config_path):
         return RawConfig()
     with open(config_path, "r") as f:

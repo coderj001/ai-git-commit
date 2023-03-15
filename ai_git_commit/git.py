@@ -1,5 +1,6 @@
-import subprocess, os
-from typing import Dict, Any
+import os
+import subprocess
+from typing import Any, Dict
 
 
 def getGitDiffOutput() -> str:

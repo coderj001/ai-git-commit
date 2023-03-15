@@ -1,9 +1,10 @@
 import subprocess
-from typing import Dict, Any
-from unittest.mock import patch, MagicMock
+from unittest.mock import MagicMock, patch
+
 from ai_git_commit.git import getGitDiffOutput
 
 
+# TODO: Some Explanation require use ChatGPT and Google Search before moving forward.
 def test_getGitDiffOutput_valid():
     expected_output = "file1.py\nfile2.py\n"
     # Mock the subprocess.run() function to return the expected output

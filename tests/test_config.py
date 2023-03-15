@@ -1,13 +1,14 @@
-import pytest
 import os
+
+import pytest
 
 from ai_git_commit.config import (
     KnownError,
-    openai_key,
+    get_config,
     locale,
+    openai_key,
     read_config_file,
     set_configs,
-    get_config,
 )
 
 
@@ -84,6 +85,3 @@ def test_get_config(cleanup_config):
     expected = {"OPENAI_KEY": "sk-xyz456", "locale": "en"}
     cli_config = {"OPENAI_KEY": "sk-xyz456"}
     assert get_config(cli_config) == expected
-
-
-# a change

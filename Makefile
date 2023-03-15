@@ -19,6 +19,7 @@ pyproject.toml:
 		--dependency click \
 		--dependency toml-cli \
 		--dependency black \
+		--dependency isort \
 		--dependency pytest \
 		--dependency pytest-cov \
 		--dependency mypy \
@@ -89,12 +90,17 @@ _xenon:
 complexity-baseline: _radon _xenon ## Run the complexity baseline
 
 .PHONY: lint
-lint: _black _mypy ## Lint all code
+lint: _black _isort _mypy ## Lint all code
 
  .PHONY: _black
 _black:
-	$(info [*] Formatting python files...)
+	$(info [*] Formatting python files with black...)
 	black .
+
+.PHONY: _isort
+_isort:
+	$(info [*] Formatting python files with isort...)
+	isort .
 
 .PHONY: _mypy
 _mypy:

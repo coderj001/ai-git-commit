@@ -27,6 +27,8 @@ ai-git-commit = "ai_git_commit:main"
 [tool.poetry.group.dev.dependencies]
 black = "^23.1.0"
 ipython = "^8.11.0"
+isort = "^5.12.0"
+python-dotenv = "^1.0.0"
 
 [tool.pytest]
 testpaths = "tests"
@@ -45,3 +47,10 @@ exclude_lines = ["if __name__ == .__main__.:"]
 [build-system]
 requires = ["poetry-core>=1.1.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 88
+target-version = ['py38']
+
+[tool.isort]
+profile = "black"
