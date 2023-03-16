@@ -1,8 +1,6 @@
-import os
-
 import click
 
-from ai_git_commit.config import KnownError, config_parsers, get_config, set_configs
+from ai_git_commit.config import config_parsers, get_config, set_configs
 
 
 @click.group(invoke_without_command=True)
