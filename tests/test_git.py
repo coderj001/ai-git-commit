@@ -1,11 +1,11 @@
 import subprocess
 from unittest.mock import MagicMock, patch
 
-from ai_git_commit.git import getGitDiffOutput
+from ai_git_commit.git import get_git_diff_output
 
 
 # TODO: Some Explanation require use ChatGPT and Google Search before moving forward.
-def test_getGitDiffOutput_valid():
+def test_get_git_diff_output_valid() -> None:
     expected_output = "file1.py\nfile2.py\n"
     # Mock the subprocess.run() function to return the expected output
     with patch("subprocess.run") as mock_run:
@@ -14,7 +14,7 @@ def test_getGitDiffOutput_valid():
         mock_result.stdout = expected_output
         mock_run.return_value = mock_result
         # Call the function and check that it returns the expected output
-        output = getGitDiffOutput()
+        output = get_git_diff_output()
         assert output == expected_output
         # Check that subprocess.run() was called with the correct arguments
         mock_run.assert_called_once_with(
@@ -22,7 +22,7 @@ def test_getGitDiffOutput_valid():
         )
 
 
-def test_getGitDiffOutput_invalid():
+def test_get_git_diff_output_invalid() -> None:
     # Mock the subprocess.run() function to raise a CalledProcessError
     with patch("subprocess.run") as mock_run:
         mock_result = MagicMock()
@@ -31,7 +31,7 @@ def test_getGitDiffOutput_invalid():
         mock_run.return_value = mock_result
         # Call the function and check that it raises a CalledProcessError
         try:
-            getGitDiffOutput()
+            get_git_diff_output()
             # The function should raise an error, so the test should fail if it gets to this point
             assert False
         except subprocess.CalledProcessError as e:

@@ -3,7 +3,7 @@ import subprocess
 from typing import Any, Dict
 
 
-def getGitDiffOutput() -> str:
+def get_git_diff_output() -> str:
     result = subprocess.run(["git", "diff", "--staged"], capture_output=True, text=True)
     if result.returncode != 0:
         raise subprocess.CalledProcessError(result.returncode, result.stderr)
