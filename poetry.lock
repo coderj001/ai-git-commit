@@ -1352,6 +1352,20 @@ files = [
 plugins = ["importlib-metadata"]
 
 [[package]]
+name = "pygments-markdown-lexer"
+version = "0.1.0.dev39"
+description = "Pygments Markdown Lexer – A Markdown lexer for Pygments to highlight Markdown code snippets."
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "pygments-markdown-lexer-0.1.0.dev39.zip", hash = "sha256:4c128c26450b5886521c674d759f95fc3768b8955a7d9c81866ee0213c2febdf"},
+]
+
+[package.dependencies]
+Pygments = ">=2.0"
+
+[[package]]
 name = "pytest"
 version = "7.2.2"
 description = "pytest: simple powerful testing with Python"
@@ -2024,4 +2038,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "d56b6f1c3a12ee6dd0be8f716f4d3067e1e4fda68c818aab1e855cdf5e4d542d"
+content-hash = "f2864a24df5c6f2fc7381690be648c76593a505f4dddc7ec9045168d34bd3264"
