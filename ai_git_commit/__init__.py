@@ -9,14 +9,17 @@ from ai_git_commit.git import run_command_git_commit
 @click.pass_context
 def main(ctx: click.Context, debug: bool) -> None:
     """
-    main command
+    Main command.
     """
     ctx.obj = {"debug": debug}
 
     if ctx.invoked_subcommand is None:
         try:
-            if get_config().get("OPENAI_KEY", None) is not None:
+            openai_key = get_config().get("OPENAI_KEY")
+            if openai_key is not None:
                 click.echo("UNDER DEVELOPMENT")
+            else:
+                run_command_git_commit()
         except KnownError:
             run_command_git_commit()
 
