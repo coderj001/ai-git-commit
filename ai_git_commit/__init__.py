@@ -1,6 +1,7 @@
 import click
 
-from ai_git_commit.config import config_parsers, get_config, set_configs
+from ai_git_commit.config import KnownError, config_parsers, get_config, set_configs
+from ai_git_commit.git import run_command_git_commit
 
 
 @click.group(invoke_without_command=True)
@@ -13,7 +14,11 @@ def main(ctx: click.Context, debug: bool) -> None:
     ctx.obj = {"debug": debug}
 
     if ctx.invoked_subcommand is None:
-        click.echo("Hello World!")
+        try:
+            if get_config().get("OPENAI_KEY", None) is not None:
+                click.echo("UNDER DEVELOPMENT")
+        except KnownError:
+            run_command_git_commit()
 
 
 @main.command()

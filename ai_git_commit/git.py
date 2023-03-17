@@ -4,7 +4,6 @@ from prompt_toolkit import HTML, PromptSession, print_formatted_text
 from prompt_toolkit.completion import Completion, WordCompleter
 from prompt_toolkit.lexers import PygmentsLexer
 from prompt_toolkit.styles import Style
-from pygments.lexers import HtmlLexer
 from pygments_markdown_lexer.lexer import MarkdownLexer
 
 from ai_git_commit.config import ICommitMessage
@@ -131,16 +130,15 @@ def is_init_git_repository() -> bool:
 
 
 def exec_git_commit(commitMessage: ICommitMessage) -> None:
-    with open("./.git/COMMIT_EDITMSG", "w") as f:
+    with open("./.git/COMMIT_EDITMSG", "r+") as f:
         f.write(f"{commitMessage['subject']}\n\n")
-        f.write("### Description\n")
         for i in commitMessage["body"]:
             f.write(f" - {i}\n")
 
     subprocess.check_output(["git", "commit", "-F", "./.git/COMMIT_EDITMSG"])
 
 
-def get_git_status_short_output() -> str:
+def get_git_status_short_output() -> None:
     result = subprocess.run(
         ["git", "status", "--short", "--untracked-files=no"],
         capture_output=True,
@@ -148,15 +146,16 @@ def get_git_status_short_output() -> str:
     )
     if result.returncode != 0:
         raise subprocess.CalledProcessError(result.returncode, result.stderr)
-    return result.stdout
-
-
-def get_hint(option_value):
-    return next(
-        (
-            option["hint"]
-            for option in type_options
-            if type_options["value"] == option_value
-        ),
-        None,
+    print_formatted_text(
+        HTML(
+            f"<style fg='ansiwhite' bg='#00ff44'><b>Checking Git Status</b></style>\n<style fg='#42f566'>{result.stdout}</style>"
+        )
     )
+
+
+def run_command_git_commit() -> None:
+    if is_init_git_repository:
+        get_git_status_short_output()
+        exec_git_commit(git_user_commit_message())
+    else:
+        print_formatted_text(HTML("Current dir need to be git root."))
