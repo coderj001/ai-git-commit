@@ -1,6 +1,7 @@
 import subprocess
+import sys
 
-from prompt_toolkit import HTML, PromptSession, print_formatted_text
+from prompt_toolkit import HTML, PromptSession, print_formatted_text, prompt
 from prompt_toolkit.completion import Completion, WordCompleter
 from prompt_toolkit.lexers import PygmentsLexer
 from prompt_toolkit.styles import Style
@@ -154,8 +155,23 @@ def get_git_status_short_output() -> None:
 
 
 def run_command_git_commit() -> None:
-    if is_init_git_repository:
-        get_git_status_short_output()
-        exec_git_commit(git_user_commit_message())
+    if not is_init_git_repository:
+        print_formatted_text(
+            HTML(
+                "<style fg='ansiwhite' bg='#ff0000'><b>Error:</b><style> Current directory is not a git repository."
+            )
+        )
+        sys.exit(1)
+
+    get_git_status_short_output()
+    commit_message = git_user_commit_message()
+
+    checked = prompt(HTML("<b>Want to continue?</b> [y/n]: ")).lower()
+    if checked.startswith("y"):
+        exec_git_commit(commit_message)
     else:
-        print_formatted_text(HTML("Current dir need to be git root."))
+        print_formatted_text(
+            HTML(
+                "<style fg='ansiwhite' bg='#ff0000'><b>Aborted:</b><style> Git commit canceled."
+            )
+        )
