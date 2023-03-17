@@ -1,9 +1,11 @@
 import os
 import subprocess
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 from prompt_toolkit import prompt
 from prompt_toolkit.completion import WordCompleter
+
+from ai_git_commit.config import ICommitMessage
 
 DEFAULT_TYPE_OPTIONS = [
     {"value": "feat", "label": "✨ feat", "hint": "A new feature"},
@@ -31,7 +33,7 @@ DEFAULT_TYPE_OPTIONS = [
     },
     {
         "value": "ci",
-        "label": "🤖 ci",
+        "label": "🤖 CI",
         "hint": "Changes to our CI configuration files and scripts",
     },
 ]
@@ -44,41 +46,47 @@ def get_git_diff_output() -> str:
     return result.stdout
 
 
-def git_user_commit_message() -> str:
-    values_list: List[str] = [option["value"] for option in DEFAULT_TYPE_OPTIONS]
-    type_completer = WordCompleter(values_list)
+def get_git_status_short_output() -> str:
+    result = subprocess.run(
+        ["git", "status", "--short"], capture_output=True, text=True
+    )
+    if result.returncode != 0:
+        raise subprocess.CalledProcessError(result.returncode, result.stderr)
+    return result.stdout
 
+
+def git_user_commit_message() -> ICommitMessage:
+    type_completer = WordCompleter([option["value"] for option in DEFAULT_TYPE_OPTIONS])
     selected_type = prompt(
-        f"Select the type ({','.join(values_list)}): ",
+        f"Select the commit type ({','.join(list(type_completer.words))}): ",
         completer=type_completer,
         complete_while_typing=True,
     )
 
-    commit_type = None
-    commit_subject = None
-    commit_message: List[str] = []
-    for option in DEFAULT_TYPE_OPTIONS:
-        if option["value"] == selected_type:
-            commit_type = option["label"]
-            break
-    print("Write a brief subject for commit message:")
-    if commit_type is not None:
-        print(f"{commit_type}: ", end=" ")
-    commit_subject = input()
-
-    print("Enter a message for commit body (empty message to exit):")
+    commit_type = next(
+        (
+            option["label"]
+            for option in DEFAULT_TYPE_OPTIONS
+            if option["value"] == selected_type
+        ),
+        None,
+    )
+    commit_subject = input(
+        f"{commit_type}: "
+        if commit_type
+        else "Write a brief title description for commit: "
+    )
+    commit_messages = []
     while True:
         msg = input(" - ")
         if not msg:
             break
-        commit_message.append(msg)
-    new_line = "" if len(commit_message) == 0 else "\n"
-    if commit_type is None:
-        return f"{commit_subject}{new_line}{new_line.join(commit_message)}"
-    else:
-        return (
-            f"{commit_type}: {commit_subject}{new_line}{new_line.join(commit_message)}"
-        )
+        commit_messages.append(msg)
+
+    if commit_type:
+        commit_subject = f"{commit_type}: {commit_subject}"
+
+    return ICommitMessage(id=0, subject=commit_subject, body=commit_messages)
 
 
 # def isInitGitRepository() -> bool:

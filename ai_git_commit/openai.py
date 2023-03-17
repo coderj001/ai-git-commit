@@ -2,15 +2,10 @@ from typing import List
 
 import openai
 
+from ai_git_commit.config import ICommitMessage
 from ai_git_commit.prompts import prompts
 
 openai.api_key = ""
-
-
-class ICommitMessage:
-    id: int
-    subject: str
-    body: List[str]
 
 
 # async def generate_commit_messages(

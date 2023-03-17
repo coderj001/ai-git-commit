@@ -1,7 +1,7 @@
 import os
 import re
 from pathlib import Path
-from typing import Dict, Optional, Tuple
+from typing import Dict, List, Optional, Tuple
 
 import ini
 
@@ -87,3 +87,9 @@ def get_config(cli_config: Optional[RawConfig] = None) -> ValidConfig:
         )
         parsed_config[key] = parser(value)
     return ValidConfig(parsed_config)
+
+
+class ICommitMessage(Dict):
+    id: int
+    subject: str
+    body: List[str | None]
