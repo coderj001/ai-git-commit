@@ -41,3 +41,4 @@ Suggest using alias, `alias commit=ai-git-commit` add it to `.bashrc` or `.zshrc
 4. Add the ability to select from multiple AI models to generate commit messages.
 4. Improve the user interface with more features and options.
 
+![Visitors](https://img.shields.io/badge/dynamic/json?color=green&label=Visitors&query=value&url=https://api.countapi.xyz/hit/coderj001/ai-git-commit)
