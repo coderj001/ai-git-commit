@@ -131,7 +131,7 @@ def is_init_git_repository() -> bool:
 
 
 def exec_git_commit(commitMessage: ICommitMessage) -> None:
-    with open("./.git/COMMIT_EDITMSG", "r+") as f:
+    with open("./.git/COMMIT_EDITMSG", "w") as f:
         f.write(f"{commitMessage['subject']}\n\n")
         for i in commitMessage["body"]:
             f.write(f" - {i}\n")
