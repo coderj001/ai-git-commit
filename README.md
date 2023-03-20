@@ -3,15 +3,23 @@
 > click, prompt-toolkit
 
 <div align="center">
-AI Git Commit is a Python-based tool that uses AI to generate Git commit messages automatically. Build this cli application using [coderj001/python-cli-tool](https://github.com/coderj001/python-cli-tool)</div>
+<h1>AI Git Commit</h1>
+<p>Generate Git commit messages automatically with AI</p>
+<p>Built with <a href="https://github.com/coderj001/python-cli-tool" target="_blank">coderj001/python-cli-tool</a></p>
+<br>
+<a href="https://github.com/coderj001/ai-git-commit/blob/main/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/coderj001/ai-git-commit?style=for-the-badge"></a>
+<a href="https://github.com/coderj001/ai-git-commit/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/coderj001/ai-git-commit?style=for-the-badge"></a>
+<a href="https://github.com/coderj001/ai-git-commit/network"><img alt="GitHub forks" src="https://img.shields.io/github/forks/coderj001/ai-git-commit?style=for-the-badge"></a>
+<a href="https://github.com/coderj001/ai-git-commit/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/coderj001/ai-git-commit?style=for-the-badge"></a>
+<br>
+<br>
+<img alt="Python" src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&amp;logo=python&amp;logoColor=ffdd54">
+<img alt="PyPI downloads" src="https://img.shields.io/pypi/dm/ai-git-commit?style=for-the-badge">
+
+</div>
 
 
-![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
-
-![GitHub stars](https://img.shields.io/github/stars/coderj001/ai-git-commit?style=for-the-badge)
-![PyPI downloads](https://img.shields.io/pypi/dm/ai-git-commit?style=for-the-badge)
-
-## Installation
+## 📦 Installation
 
 Install ai-git-commit with pip or pipx
 
@@ -22,7 +30,7 @@ or
 ```bash
   pipx install ai-git-commit
 ```
-## Usage
+## 🚀 Usage
 
 When you're ready to commit. To run the CLI in your terminal:
 
@@ -31,7 +39,7 @@ ai-git-commit
 ```
 Suggest using alias, `alias commit=ai-git-commit` add it to `.bashrc` or `.zshrc`.
 
-## Demo
+## 😮 Demo
 
 [![asciicast](https://asciinema.org/a/568236.svg)](https://asciinema.org/a/568236)
 
