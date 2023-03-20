@@ -1,11 +1,13 @@
 
 # ai-git-commit
-> click, prompt-toolkit, openai
+> click, prompt-toolkit
 
-AI Git Commit is a Python-based tool that uses AI to generate Git commit messages automatically. 
-<br />
+<div align="center">
+AI Git Commit is a Python-based tool that uses AI to generate Git commit messages automatically. Build this cli application using [coderj001/python-cli-tool](https://github.com/coderj001/python-cli-tool)</div>
+
+
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
-<br />
+
 ![GitHub stars](https://img.shields.io/github/stars/coderj001/ai-git-commit?style=for-the-badge)
 ![PyPI downloads](https://img.shields.io/pypi/dm/ai-git-commit?style=for-the-badge)
 
