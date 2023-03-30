@@ -162,7 +162,7 @@ def run_command_git_commit() -> None:
         commit_message = git_user_commit_message()
 
         checked = prompt(HTML("<b>Want to continue?</b> [y/n]: ")).lower()
-        if checked.startswith("y"):
+        if checked.startswith("y") or checked == "":
             exec_git_commit(commit_message)
         else:
             print_formatted_text(
