@@ -124,7 +124,9 @@ def get_git_diff_output() -> str:
 
 def is_init_git_repository() -> bool:
     try:
-        subprocess.check_output(["git", "rev-parse", "--is-inside-work-tree"])
+        subprocess.check_output(
+            ["git", "rev-parse", "--is-inside-work-tree"], stderr=subprocess.DEVNULL
+        )
         return True
     except:
         return False
@@ -155,23 +157,24 @@ def get_git_status_short_output() -> None:
 
 
 def run_command_git_commit() -> None:
-    if not is_init_git_repository:
-        print_formatted_text(
-            HTML(
-                "<style fg='ansiwhite' bg='#ff0000'><b>Error:</b><style> Current directory is not a git repository."
+    if is_init_git_repository():
+        get_git_status_short_output()
+        commit_message = git_user_commit_message()
+
+        checked = prompt(HTML("<b>Want to continue?</b> [y/n]: ")).lower()
+        if checked.startswith("y"):
+            exec_git_commit(commit_message)
+        else:
+            print_formatted_text(
+                HTML(
+                    "<style fg='ansiwhite' bg='#ff0000'><b>Aborted:</b></style> canceled the commit ."
+                )
             )
-        )
-        sys.exit(1)
-
-    get_git_status_short_output()
-    commit_message = git_user_commit_message()
-
-    checked = prompt(HTML("<b>Want to continue?</b> [y/n]: ")).lower()
-    if checked.startswith("y"):
-        exec_git_commit(commit_message)
     else:
         print_formatted_text(
             HTML(
-                "<style fg='ansiwhite' bg='#ff0000'><b>Aborted:</b><style> Git commit canceled."
+                "<style fg='ansiwhite' bg='#ff0000'><b>Error:</b></style> Current directory is not a git repository."
             )
         )
+
+        sys.exit(1)
