@@ -29,34 +29,105 @@ def git_user_commit_message() -> ICommitMessage:
             "hint": "Documentation only changes",
         },
         {
+            "value": "style",
+            "label": "💄 Styles",
+            "hint": "Changes related to code styling, formatting, or linting",
+        },
+        {
             "value": "refactor",
             "label": "♻️ Code Refactoring",
-            "hint": "A code change that neither fixes a bug nor adds a feature",
+            "hint": "Code refactoring or restructuring without changing the external behavior",
+        },
+        {"value": "test", "label": "🧪 Tests", "hint": "Adding or updating tests"},
+        {
+            "value": "chore",
+            "label": "🔧 Maintenance",
+            "hint": "Maintenance tasks or non-code related changes",
         },
         {
             "value": "perf",
             "label": "🚀 Performance",
-            "hint": "A code change that improves performance",
+            "hint": "Performance improvements or optimizations",
         },
         {
-            "value": "test",
-            "label": "🧪 Tests",
-            "hint": "Adding missing tests or correcting existing tests",
-        },
-        {
-            "value": "build",
-            "label": "🏗️ Build",
-            "hint": "Changes that affect the build system or external dependencies",
+            "value": "security",
+            "label": "🔒 Security",
+            "hint": "Fixes or enhancements related to security vulnerabilities",
         },
         {
             "value": "ci",
             "label": "🤖 CI",
-            "hint": "Changes to our CI configuration files and scripts",
+            "hint": "Changes related to Continuous Integration (CI) configuration or scripts",
         },
         {
-            "value": "style",
-            "label": "💄 Styles",
-            "hint": "A code change that improves code styles",
+            "value": "i18n",
+            "label": "🌍 Internationalization",
+            "hint": "Internationalization and localization updates",
+        },
+        {
+            "value": "ui",
+            "label": "🖌️ User Interface",
+            "hint": "User Interface (UI) changes or enhancements",
+        },
+        {
+            "value": "ux",
+            "label": "👍 User Experience",
+            "hint": "User Experience (UX) improvements or updates",
+        },
+        {
+            "value": "build",
+            "label": "🏗️ Build",
+            "hint": "Changes related to build systems or dependencies",
+        },
+        {
+            "value": "config",
+            "label": "⚙️ Configuration",
+            "hint": "Configuration updates or changes",
+        },
+        {
+            "value": "deps",
+            "label": "📦 Dependencies",
+            "hint": "Dependency updates or changes",
+        },
+        {
+            "value": "revert",
+            "label": "↩️ Revert",
+            "hint": "Reverting a previous commit or change",
+        },
+        {
+            "value": "lint",
+            "label": "🔍 Linting",
+            "hint": "Linting-related updates or improvements",
+        },
+        {
+            "value": "release",
+            "label": "🚀 Release",
+            "hint": "Commits related to a new release or version",
+        },
+        {
+            "value": "infra",
+            "label": "🖥️ Infrastructure",
+            "hint": "Infrastructure updates or changes, such as server configurations",
+        },
+        {
+            "value": "animations",
+            "label": "🎬 Animations",
+            "hint": "Changes related to animations or transitions",
+        },
+        {
+            "value": "examples",
+            "label": "📚 Examples",
+            "hint": "Updates or additions to example projects or code samples",
+        },
+        {
+            "value": "logging",
+            "label": "🔍 Logging",
+            "hint": "Logging-related changes or improvements",
+        },
+        {
+            "value": "monitoring",
+            "label": "🔬 Monitoring",
+            "hint": "Updates or additions to monitoring tools and configurations",
         },
     ]
 
@@ -91,6 +162,11 @@ def git_user_commit_message() -> ICommitMessage:
             if option["value"] == selected_type
         ),
         None,
+    )
+
+    prompt_session = PromptSession(
+        style=style,
+        lexer=PygmentsLexer(MarkdownLexer),
     )
 
     commit_subject = prompt_session.prompt(
