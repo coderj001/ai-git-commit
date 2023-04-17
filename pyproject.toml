@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ai-git-commit"
-version = "0.1.3"
+version = "0.1.5"
 description = " AI Git Commit is a Python-based tool that uses AI to generate Git commit messages automatically."
 authors = ["Raju Ghorai <rajughorai41410@gmail.com>"]
 license = "MIT"
