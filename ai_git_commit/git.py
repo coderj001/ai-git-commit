@@ -11,6 +11,18 @@ from ai_git_commit.config import ICommitMessage
 
 
 def git_user_commit_message() -> ICommitMessage:
+    """
+    The git_user_commit_message function is a function that prompts the user to enter a commit message.
+    The function uses prompt_toolkit to create an interactive command line interface for the user.
+    The first prompt asks the user to select from one of several options, each with their own label and hint text.
+    Once selected, this option is used as part of the commit subject (e.g., "feat: Add new feature"). The second prompt asks
+    the user for a brief description of what they are committing (e.g., "Add new feature"). Finally, there is an optional
+    prompt where users can add more detailed information about their changes in markdown format.
+
+    :return: A icommitmessage object.
+
+    :doc-author: coderj001
+    """
     style = Style.from_dict(
         {
             "completion-menu.completion": "bg:#008888 #ffffff",
@@ -137,6 +149,20 @@ def git_user_commit_message() -> ICommitMessage:
     )
 
     def get_completions(document, complete_event):
+        """
+        The get_completions function is called when the user presses TAB.
+        It should return a list of completions, each completion being a Completion object.
+        The Completion object has three attributes: text, start_position and display_meta.
+        text is the actual text that will be inserted into the document if this completion is selected by the user.
+        start_position indicates where in the document to insert this completion (0 means right after current word).
+        display_meta can be used to show extra information about this option in your UI.
+
+        :param document: Used to Get the word before the cursor.
+        :param complete_event: Used to Get the current line and column of the cursor.
+        :return: A generator.
+
+        :doc-author: coderj001
+        """
         word_before_cursor = document.get_word_before_cursor()
         for option in type_options:
             if option["value"].startswith(word_before_cursor):
@@ -192,6 +218,16 @@ def git_user_commit_message() -> ICommitMessage:
 
 
 def get_git_diff_output() -> str:
+    """
+    The get_git_diff_output function returns the output of a git diff --staged command.
+
+    The function uses subprocess to run the git diff --staged command and capture its output. If the return code is not 0,
+    the function raises a CalledProcessError with an error message from stderr. Otherwise, it returns stdout as a string.
+
+    :return: The output of the git diff --staged command.
+
+    :doc-author: coderj001
+    """
     result = subprocess.run(["git", "diff", "--staged"], capture_output=True, text=True)
     if result.returncode != 0:
         raise subprocess.CalledProcessError(result.returncode, result.stderr)
@@ -199,6 +235,15 @@ def get_git_diff_output() -> str:
 
 
 def is_init_git_repository() -> bool:
+    """
+    The is_init_git_repository function checks if the current directory is a git repository.
+    It does this by calling the `git rev-parse --is-inside-work-tree` command and checking its output.
+    If it returns 0, then we are in a git repository; otherwise, we are not.
+
+    :return: True if the current directory is a git repository.
+
+    :doc-author: coderj001
+    """
     try:
         subprocess.check_output(
             ["git", "rev-parse", "--is-inside-work-tree"], stderr=subprocess.DEVNULL
@@ -209,6 +254,15 @@ def is_init_git_repository() -> bool:
 
 
 def exec_git_commit(commitMessage: ICommitMessage) -> None:
+    """
+    The exec_git_commit function takes a commit message as an argument and writes it to the COMMIT_EDITMSG file.
+    It then executes the git commit command with the -F flag, which tells git to use that file as its commit message.
+
+    :param commitMessage:ICommitMessage: Used to Specify the type of the parameter.
+    :return: Nothing.
+
+    :doc-author: coderj001
+    """
     with open("./.git/COMMIT_EDITMSG", "w") as f:
         f.write(f"{commitMessage['subject']}\n\n")
         for i in commitMessage["body"]:
@@ -218,6 +272,14 @@ def exec_git_commit(commitMessage: ICommitMessage) -> None:
 
 
 def get_git_status_short_output() -> None:
+    """
+    The get_git_status_short_output function runs the git status command with the --short and --untracked-files=no flags.
+    The output is printed to stdout in a green color.
+
+    :return: The following:.
+
+    :doc-author: coderj001
+    """
     result = subprocess.run(
         ["git", "status", "--short", "--untracked-files=no"],
         capture_output=True,
@@ -233,6 +295,16 @@ def get_git_status_short_output() -> None:
 
 
 def run_command_git_commit() -> None:
+    """
+    The run_command_git_commit function is used to commit the changes in the current directory.
+        It first checks if there is a git repository initialized in the current directory, and then it gets
+        all of the files that have been modified or added since last commit. Then it asks for a user inputted
+        message to be used as a commit message, and finally commits all of those changes with that message.
+
+    :return: None.
+
+    :doc-author: coderj001
+    """
     if is_init_git_repository():
         get_git_status_short_output()
         commit_message = git_user_commit_message()
